@@ -49,12 +49,9 @@
         let usersUnknownCity = new City(null, null, position.coords.latitude, position.coords.longitude, null,
                                 null, null, null, null);
 
-
-
         let userAntipodeCoordinates = usersUnknownCity.calculateAntipode();
         let userAntipode = new Location(userAntipodeCoordinates.lat, userAntipodeCoordinates.lng);
 
-        // alert("Antipode!!! Lat: " + userAntipode.lat + " Lon: " + userAntipode.lng)
         // Get the JSON
         var settings = {
           "async": true,
@@ -79,8 +76,13 @@
 
             cityArray.push(cityObject);
           });
+        
+          // Get user's city
+          let userLocation = new Location(position.coords.latitude, position.coords.longitude);                  
+          let userCity = getClosestCity(userLocation, cityArray);// Calculate the closest city
+          userCity.addCityToMap(userCity, viewer);// Plot user's city on map
 
-                // Get closest city to antipode
+          // Get closest city to antipode
           let closestCityToAntipode = getClosestCity(userAntipode, cityArray);// Calculate the closest city
           closestCityToAntipode.addCityToMap(closestCityToAntipode, viewer);// Plot city on map
           let cityCartesian3 = closestCityToAntipode.calculateCartesian3()

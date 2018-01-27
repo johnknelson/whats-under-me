@@ -36,22 +36,22 @@ class City {
     addCityToMap(city, viewer){
         // Add some points
         var pointEntity = viewer.entities.add({
-        name : city.cityName,
-        position : Cesium.Cartesian3.fromDegrees(city.lng, city.lat),
-        point : {
-            pixelSize : 5,
-            color : Cesium.Color.RED,
-            outlineColor : Cesium.Color.WHITE,
-            outlineWidth : 2
-        },
-        label : {
-            text : city.cityName,
-            font : '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
-            pixelOffset : new Cesium.Cartesian2(0, -9)
-        }
+            name : city.cityName,
+            position : Cesium.Cartesian3.fromDegrees(city.lng, city.lat),
+            point : {
+                pixelSize : 5,
+                color : Cesium.Color.RED,
+                outlineColor : Cesium.Color.WHITE,
+                outlineWidth : 2
+            },
+            label : {
+                text : city.cityName,
+                font : '14pt monospace',
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                outlineWidth : 2,
+                verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
+                pixelOffset : new Cesium.Cartesian2(0, -9)
+            }
         });
 
         return pointEntity;
