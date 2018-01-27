@@ -18,6 +18,7 @@
   <script src="./classes/city.js"></script>
   <script src="./classes/location.js"></script>
   <script src="./classes/location_getter.js"></script>
+  <script src="./util/util.js"></script>
 
   <style>
       @import url(../../Build/Cesium/Widgets/widgets.css);
@@ -32,10 +33,8 @@
   <div id="cesiumContainer"></div>
   <script>
 
+    // Global variables
     var userAntipode;
-
-    // Require js
-    //var city = require('./classes/city.js');
 
     var viewer = new Cesium.Viewer('cesiumContainer');
 
@@ -53,58 +52,43 @@
 
 
         let userAntipodeCoordinates = usersUnknownCity.calculateAntipode();
-        let userAntipodeLocation = new Location(userAntipodeCoordinates.lat, userAntipodeCoordinates.lng);
+        let userAntipode = new Location(userAntipodeCoordinates.lat, userAntipodeCoordinates.lng);
 
-        alert("Antipode!!! Lat: " + userAntipodeLocation.lat + " Lon: " + userAntipodeLocation.lng)
+        // alert("Antipode!!! Lat: " + userAntipode.lat + " Lon: " + userAntipode.lng)
+        // Get the JSON
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "http://localhost:8080/getCities",
+          "method": "GET",
+          "headers": {
+            "cache-control": "no-cache",
+          }
+        }
+
+        var cityArray = [];
+
+        $.ajax(settings).done(function (response) {
+          console.log(response[0]);
+          var cityArray = [];
+
+          response.forEach(function(city) {
+            // Create a new city object and add it to an array
+            let cityObject = new City(city.city, city.city_ascii, city.lat, city.lng, city.pop,
+                                      city.country, city.iso2, city.iso3, city.province);
+
+            cityArray.push(cityObject);
+          });
+
+              // Get closest city to antipode
+        let closestCityToAntipode = getClosestCity(userAntipode, cityArray);
+        closestCityToAntipode.addCityToMap(closestCityToAntipode, viewer);
+        });
     }
 
     getLocation(showPosition);
 
-    // Add some points
-    var citizensBankPark = viewer.entities.add({
-      name : 'Citizens Bank Park',
-      position : Cesium.Cartesian3.fromDegrees(-75.166493, 39.9060534),
-      point : {
-          pixelSize : 5,
-          color : Cesium.Color.RED,
-          outlineColor : Cesium.Color.WHITE,
-          outlineWidth : 2
-      },
-      label : {
-          text : 'Citizens Bank Park',
-          font : '14pt monospace',
-          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-          outlineWidth : 2,
-          verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
-          pixelOffset : new Cesium.Cartesian2(0, -9)
-      }
-    });
 
-    /* Add a point for each entry in our cities database */
-
-    // Get the JSON
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "http://localhost:8080/getCities",
-      "method": "GET",
-      "headers": {
-        "cache-control": "no-cache",
-      }
-    }
-
-    $.ajax(settings).done(function (response) {
-      console.log(response[0]);
-      
-      response.forEach(function(city) {
-        // Create a new city object and add it to an array
-        let cityObject = new City(city.city, city.city_ascii, city.lat, city.lng, city.pop,
-                                  city.country, city.iso2, city.iso3, city.province);
-
-        
-      });
-      // Add all points to a variable
-    });
     viewer.terrainProvider = cesiumTerrainProviderMeshes;
 </script>
 
