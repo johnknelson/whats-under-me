@@ -33,7 +33,7 @@ class City {
     }
 
 
-    addCityToMap(city, viewer){
+    addCityToMap(viewer){
         // Add some points
         var pointEntity = viewer.entities.add({
         name : city.cityName,
@@ -55,5 +55,10 @@ class City {
         });
 
         return pointEntity;
+    }
+
+    calculateCartesian3(){
+        let cityCartesian3 = new Cesium.Cartesian3.fromDegrees(this.lng, this.lat);
+        
     }
 }
