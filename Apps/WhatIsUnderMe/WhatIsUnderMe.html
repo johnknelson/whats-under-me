@@ -82,13 +82,13 @@
 
                 // Get closest city to antipode
           let closestCityToAntipode = getClosestCity(userAntipode, cityArray);// Calculate the closest city
-          let closestCityToAntipodePointEntity = closestCityToAntipode.addCityToMap(closestCityToAntipode, viewer);// Plot city on map
+          closestCityToAntipode.addCityToMap(closestCityToAntipode, viewer);// Plot city on map
           let cityCartesian3 = closestCityToAntipode.calculateCartesian3()
-          // viewer.camera.flyTo(
-          //   {
-          //     "destination": cityCartesian3
-          //   }
-          // );
+          viewer.camera.flyTo(
+            {
+              "destination": cityCartesian3
+            }
+          );
 
           // viewer.camera.flyTo({
           //     destination : Cesium.Cartesian3.fromDegrees(-117.16, 32.71, 15000.0)
@@ -98,9 +98,9 @@
 
     getLocation(showPosition);
 
-    viewer.camera.flyTo({
-        destination : Cesium.Cartesian3.fromDegrees(-117.16, 32.71, 15000.0)
-    });
+    // viewer.camera.flyTo({
+    //     destination : Cesium.Cartesian3.fromDegrees(-117.16, 32.71, 15000.0)
+    // });
 
     //viewer.terrainProvider = cesiumTerrainProviderMeshes;
 </script>

@@ -33,11 +33,11 @@ class City {
     }
 
 
-    addCityToMap(viewer){
+    addCityToMap(city, viewer){
         // Add some points
         var pointEntity = viewer.entities.add({
         name : city.cityName,
-        position : Cesium.Cartesian3.fromDegrees(city.lng, city.latx),
+        position : Cesium.Cartesian3.fromDegrees(city.lng, city.lat),
         point : {
             pixelSize : 5,
             color : Cesium.Color.RED,
@@ -59,6 +59,6 @@ class City {
 
     calculateCartesian3(){
         let cityCartesian3 = new Cesium.Cartesian3.fromDegrees(this.lng, this.lat);
-        
+        return cityCartesian3;
     }
 }
