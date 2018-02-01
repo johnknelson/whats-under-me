@@ -52,6 +52,8 @@
         let userAntipodeCoordinates = usersUnknownCity.calculateAntipode();
         let userAntipode = new Location(userAntipodeCoordinates.lat, userAntipodeCoordinates.lng);
 
+        userAntipode.addLocationToMap();
+
         // Get the JSON
         var settings = {
           "async": true,
