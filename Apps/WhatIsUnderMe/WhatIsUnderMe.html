@@ -44,6 +44,16 @@
         requestVertexNormals : true
     });
 
+
+    // Override he default Ceisum screenSpaceEvent hdnler for left clicks
+    // viewer.screenSpaceEventHandler.setInputAction(function(movement) {
+    //     if (viewer.selectedEntity) {
+    //         // do processing here
+    //         console.log("We caught it!");
+    //     }
+    //     // etc.
+    // }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
     // Request and cache user's location
     function showPosition(position) {
         let usersUnknownCity = new City(null, null, position.coords.latitude, position.coords.longitude, null,

@@ -35,7 +35,9 @@ class City {
 
     addCityToMap(city, viewer){
         // Add some points
-        var pointEntity = viewer.entities.add({
+        // TODO Set ID so we can go find the cities on click later
+
+        var cityEntity = viewer.entities.add({
             name : city.cityName,
             position : Cesium.Cartesian3.fromDegrees(city.lng, city.lat),
             point : {
@@ -54,7 +56,11 @@ class City {
             }
         });
 
-        return pointEntity;
+
+        // Set the description whichsill show in the dialog to be the city's mobile Wikipedia page
+        cityEntity.description = '<iframe style="width:  500; height:  500;" src="https://en.m.wikipedia.org/wiki/' + city.cityName + '"></iframe>';
+
+        return cityEntity;
     }
 
     calculateCartesian3(){
